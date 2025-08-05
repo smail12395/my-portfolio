@@ -594,10 +594,6 @@ video {
   height: 3rem;
 }
 
-.h-\[\] {
-  height: ;
-}
-
 .h-\[70px\] {
   height: 70px;
 }
@@ -626,9 +622,7 @@ video {
   width: 4rem;
 }
 
-.w-\[\] {
-  width: ;
-}
+
 
 .w-\[100px\] {
   width: 100px;
