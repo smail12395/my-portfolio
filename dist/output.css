@@ -717,10 +717,6 @@ video {
   background-color: rgb(45 212 191 / 0.1);
 }
 
-.bg-teal-400\/30 { background-color: rgb(45 212 191 / 0.3); }
-.text-xs { font-size: 0.75rem; line-height: 1rem; }
-
-
 .object-cover {
   -o-object-fit: cover;
      object-fit: cover;
