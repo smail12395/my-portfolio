@@ -3,165 +3,743 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./dist/output.css">
-    <link rel="icon" type="icon/png" href="./images/icon.png">
-    <title>Ismail Nyms</title>
+    <title>Ismail Nyms - Matrix Theme</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #000;
+            color: #0f0;
+            font-family: 'Roboto Mono', monospace;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 30, 0, 0.1),
+                rgba(0, 30, 0, 0.1) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .matrix-code {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        .code-column {
+            position: absolute;
+            top: -100px;
+            color: #0f0;
+            font-size: 14px;
+            font-family: 'Roboto Mono', monospace;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+
+        .content {
+            position: relative;
+            z-index: 10;
+        }
+
+        .glow {
+            text-shadow: 0 0 5px #0f0, 0 0 10px #0f0, 0 0 15px #0f0;
+            transition: all 0.3s ease;
+        }
+
+        .glow:hover {
+            text-shadow: 0 0 10px #0f0, 0 0 20px #0f0, 0 0 30px #0f0, 0 0 40px #0f0;
+        }
+
+        .neon-border {
+            border: 1px solid #0f0;
+            box-shadow: 0 0 5px #0f0, inset 0 0 5px #0f0;
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: rgba(0, 255, 0, 0.3);
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+            animation: scan 8s linear infinite;
+            z-index: 999;
+            pointer-events: none;
+        }
+
+        @keyframes scan {
+            0% { top: 0; }
+            100% { top: 100%; }
+        }
+
+        .terminal-text {
+            position: relative;
+        }
+
+        .terminal-text::after {
+            content: "|";
+            animation: blink 1s infinite;
+            margin-left: 2px;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .hover-glow:hover {
+            text-shadow: 0 0 5px #0f0, 0 0 10px #0f0;
+            color: #fff;
+        }
+
         .active {
-          @apply w-[20%] border-slate-200 text-slate-200;
+            color: #fff;
+            text-shadow: 0 0 5px #0f0, 0 0 10px #0f0;
+        }
+
+        .glitch {
+            position: relative;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch::before {
+            left: 2px;
+            text-shadow: -1px 0 #f00;
+            clip: rect(44px, 450px, 44px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+
+        .glitch::after {
+            left: -2px;
+            text-shadow: -1px 0 #00f;
+            clip: rect(44px, 450px, 44px, 0);
+            animation: glitch-anim2 5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% { clip: rect(42px, 9999px, 44px, 0); }
+            5% { clip: rect(12px, 9999px, 59px, 0); }
+            10% { clip: rect(48px, 9999px, 29px, 0); }
+            15% { clip: rect(42px, 9999px, 73px, 0); }
+            20% { clip: rect(63px, 9999px, 27px, 0); }
+            25% { clip: rect(34px, 9999px, 55px, 0); }
+            30% { clip: rect(86px, 9999px, 73px, 0); }
+            35% { clip: rect(20px, 9999px, 20px, 0); }
+            40% { clip: rect(26px, 9999px, 60px, 0); }
+            45% { clip: rect(25px, 9999px, 66px, 0); }
+            50% { clip: rect(57px, 9999px, 98px, 0); }
+            55% { clip: rect(5px, 9999px, 46px, 0); }
+            60% { clip: rect(82px, 9999px, 31px, 0); }
+            65% { clip: rect(54px, 9999px, 27px, 0); }
+            70% { clip: rect(28px, 9999px, 99px, 0); }
+            75% { clip: rect(45px, 9999px, 69px, 0); }
+            80% { clip: rect(23px, 9999px, 85px, 0); }
+            85% { clip: rect(1px, 9999px, 83px, 0); }
+            90% { clip: rect(72px, 9999px, 11px, 0); }
+            95% { clip: rect(60px, 9999px, 89px, 0); }
+            100% { clip: rect(52px, 9999px, 74px, 0); }
+        }
+
+        @keyframes glitch-anim2 {
+            0% { clip: rect(65px, 9999px, 100px, 0); }
+            5% { clip: rect(52px, 9999px, 74px, 0); }
+            10% { clip: rect(79px, 9999px, 85px, 0); }
+            15% { clip: rect(75px, 9999px, 5px, 0); }
+            20% { clip: rect(67px, 9999px, 61px, 0); }
+            25% { clip: rect(14px, 9999px, 79px, 0); }
+            30% { clip: rect(1px, 9999px, 66px, 0); }
+            35% { clip: rect(86px, 9999px, 30px, 0); }
+            40% { clip: rect(23px, 9999px, 98px, 0); }
+            45% { clip: rect(85px, 9999px, 72px, 0); }
+            50% { clip: rect(71px, 9999px, 75px, 0); }
+            55% { clip: rect(28px, 9999px, 84px, 0); }
+            60% { clip: rect(45px, 9999px, 54px, 0); }
+            65% { clip: rect(38px, 9999px, 12px, 0); }
+            70% { clip: rect(61px, 9999px, 96px, 0); }
+            75% { clip: rect(16px, 9999px, 26px, 0); }
+            80% { clip: rect(96px, 9999px, 58px, 0); }
+            85% { clip: rect(83px, 9999px, 36px, 0); }
+            90% { clip: rect(71px, 9999px, 85px, 0); }
+            95% { clip: rect(2px, 9999px, 17px, 0); }
+            100% { clip: rect(20px, 9999px, 29px, 0); }
+        }
+
+        .binary-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), 
+                        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23000"/><text x="50" y="50" font-family="monospace" font-size="10" fill="%230f0" opacity="0.1">0101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101......</text></svg>');
+            opacity: 0.05;
+            z-index: -1;
+        }
+
+        .matrix-link {
+            position: relative;
+            color: #0f0;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .matrix-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: #0f0;
+            transition: width 0.3s ease;
+        }
+
+        .matrix-link:hover::after {
+            width: 100%;
+        }
+
+        .matrix-link:hover {
+            color: #fff;
+            text-shadow: 0 0 5px #0f0;
+        }
+
+        /* Layout adjustments */
+        .content {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .left-panel {
+            position: fixed;
+            padding: 60px;
+            width: 48%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .right-panel {
+            width: 52%;
+            padding: 60px;
+            margin-left: 48%;
+        }
+
+        /* Social icons */
+        .social-icons {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            justify-content: flex-start;
+            margin-top: 40px;
+        }
+
+        .social-icon {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .social-icon:hover {
+            transform: scale(1.2);
+            filter: brightness(1.5);
+        }
+
+        /* Navigation */
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            padding: 8px 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item:hover {
+            transform: translateX(10px);
+        }
+
+        .nav-bar {
+            height: 2px;
+            width: 10%;
+            background-color: #0f0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item:hover .nav-bar {
+            width: 20%;
+        }
+
+        .nav-text {
+            color: #0f0;
+            font-size: 16px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item:hover .nav-text {
+            color: #fff;
+        }
+
+        /* Content sections */
+        .section {
+            margin-bottom: 80px;
+        }
+
+        .section-title {
+            color: #0f0;
+            font-size: 14px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+
+        .project-card, .education-card {
+            display: flex;
+            gap: 20px;
+            padding: 25px;
+            margin: 15px 0;
+            border: 1px solid rgba(0, 255, 0, 0.2);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .project-card:hover, .education-card:hover {
+            background-color: rgba(0, 255, 0, 0.05);
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .project-image {
+            width: 120px;
+            height: 120px;
+            flex-shrink: 0;
+            border: 1px solid #0f0;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .project-content {
+            flex: 1;
+        }
+
+        .project-title {
+            color: #0f0;
+            font-size: 18px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .project-title:hover {
+            color: #fff;
+        }
+
+        .project-desc {
+            color: #0a0;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .tech-stack {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .tech-item {
+            background-color: rgba(0, 255, 0, 0.1);
+            color: #0f0;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            border: 1px solid rgba(0, 255, 0, 0.3);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1024px) {
+            .content {
+                flex-direction: column;
+            }
+            
+            .left-panel {
+                position: relative;
+                width: 100%;
+                height: auto;
+                padding: 40px;
+            }
+            
+            .right-panel {
+                width: 100%;
+                padding: 40px;
+                margin-left: 0;
+            }
+            
+            .social-icons {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .left-panel {
+                padding: 30px 20px;
+            }
+            
+            .right-panel {
+                padding: 30px 20px;
+            }
+            
+            .project-card, .education-card {
+                flex-direction: column;
+            }
+            
+            .project-image {
+                width: 100%;
+                height: 200px;
+            }
         }
     </style>
 </head>
-<body class="bg-slate-900 leading-relaxed text-slate-400 antialiased selection:bg-teal-300 selection:text-teal-900">
-<div class="content lg:flex ">
+<body class="bg-black text-green-400 leading-relaxed selection:bg-green-600 selection:text-black">
+    <div class="binary-bg"></div>
+    <div class="scanline"></div>
+    <div class="matrix-code" id="matrixCode"></div>
 
-
-  <section class="lg:fixed p-[60px] lg:w-[48%] lg:h-full space-y-8 lg:gap-4">
-    <div class="text-3xl cursor-pointer font-extrabold tracking-tighter text-slate-200 sm:text-5xl">
-    ISMAIL NYMS
-      </div>
-      <div class="mt-4 text-slate-200 text-xl tracking-tighter" >Full-Stack Development</div>
-      <div class="mr-[20%] tracking-tighter">I design and build modern, responsive websites while learning full-stack development one project at a time.</div>
-
-      <nav class="hidden lg:block space-y-6">
-        <a href="#about" class="parentNavDivs active cursor-pointer group space-x-1 flex justify-start items-center "><div class=" about border-[2px] transition-x duration-300 border-slate-400 group-hover:w-[20%] w-[10%] group-[.active]:w-[20%] group-hover:border-slate-200 group-[.active]:border-slate-200"></div> <span class=" uppercase w-[50%] py-0 group-[.active]:text-slate-200 group-hover:text-slate-200">about</span></a>
-        <a href="#projects" class="parentNavDivs cursor-pointer group space-x-1 flex justify-start items-center"><div class="projects border-[2px] transition-x duration-300 border-slate-400 w-[10%] group-hover:w-[20%] group-hover:border-slate-200"></div> <span class="uppercase w-[50%] py-0 group-hover:text-slate-200">projects</span></a>
-        <a href="#education" class="parentNavDivs cursor-pointer group space-x-1 flex justify-start items-center"><div class="education border-[2px] transition-x duration-300 border-slate-400 w-[10%] group-hover:w-[20%] group-hover:border-slate-200"></div> <span class="uppercase w-[50%] py-0 group-hover:text-slate-200">education</span></a>
-      </nav>
-
-      <!--SVGs-->
-      <ul class="flex space-x-8 items-center max-lg:justify-center">
-        <li onclick="window.open('https:/\/github.com/smail12395/', '_blank')" class="cursor-pointer hover:stroke-white hover:fill-white"><svg class="hover:stroke-white hover:fill-white group" width="30px" height="30px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>github [#94a3b8]</title> <desc>Created with Sketch.</desc> <defs> </defs> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g class="group-hover:fill-white" id="Dribbble-Light-Preview" transform="translate(-140.000000, -7559.000000)" fill="#94a3b8"> <g id="icons" transform="translate(56.000000, 160.000000)"> <path d="M94,7399 C99.523,7399 104,7403.59 104,7409.253 C104,7413.782 101.138,7417.624 97.167,7418.981 C96.66,7419.082 96.48,7418.762 96.48,7418.489 C96.48,7418.151 96.492,7417.047 96.492,7415.675 C96.492,7414.719 96.172,7414.095 95.813,7413.777 C98.04,7413.523 100.38,7412.656 100.38,7408.718 C100.38,7407.598 99.992,7406.684 99.35,7405.966 C99.454,7405.707 99.797,7404.664 99.252,7403.252 C99.252,7403.252 98.414,7402.977 96.505,7404.303 C95.706,7404.076 94.85,7403.962 94,7403.958 C93.15,7403.962 92.295,7404.076 91.497,7404.303 C89.586,7402.977 88.746,7403.252 88.746,7403.252 C88.203,7404.664 88.546,7405.707 88.649,7405.966 C88.01,7406.684 87.619,7407.598 87.619,7408.718 C87.619,7412.646 89.954,7413.526 92.175,7413.785 C91.889,7414.041 91.63,7414.493 91.54,7415.156 C90.97,7415.418 89.522,7415.871 88.63,7414.304 C88.63,7414.304 88.101,7413.319 87.097,7413.247 C87.097,7413.247 86.122,7413.234 87.029,7413.87 C87.029,7413.87 87.684,7414.185 88.139,7415.37 C88.139,7415.37 88.726,7417.2 91.508,7416.58 C91.513,7417.437 91.522,7418.245 91.522,7418.489 C91.522,7418.76 91.338,7419.077 90.839,7418.982 C86.865,7417.627 84,7413.783 84,7409.253 C84,7403.59 88.478,7399 94,7399" id="github-[#94a3b8]"> </path> </g> </g> </g> </g></svg></li>
-        <li onclick="window.open('https:/\/instagram.com/ornyms/', '_blank')" class="cursor-pointer hover:stroke-white hover:fill-white"><svg class="hover:stroke-white hover:fill-white" fill="#94a3b8" width="30px" height="30px" viewBox="0 0 32 32" id="Camada_1" version="1.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M22.3,8.4c-0.8,0-1.4,0.6-1.4,1.4c0,0.8,0.6,1.4,1.4,1.4c0.8,0,1.4-0.6,1.4-1.4C23.7,9,23.1,8.4,22.3,8.4z"></path> <path d="M16,10.2c-3.3,0-5.9,2.7-5.9,5.9s2.7,5.9,5.9,5.9s5.9-2.7,5.9-5.9S19.3,10.2,16,10.2z M16,19.9c-2.1,0-3.8-1.7-3.8-3.8 c0-2.1,1.7-3.8,3.8-3.8c2.1,0,3.8,1.7,3.8,3.8C19.8,18.2,18.1,19.9,16,19.9z"></path> <path d="M20.8,4h-9.5C7.2,4,4,7.2,4,11.2v9.5c0,4,3.2,7.2,7.2,7.2h9.5c4,0,7.2-3.2,7.2-7.2v-9.5C28,7.2,24.8,4,20.8,4z M25.7,20.8 c0,2.7-2.2,5-5,5h-9.5c-2.7,0-5-2.2-5-5v-9.5c0-2.7,2.2-5,5-5h9.5c2.7,0,5,2.2,5,5V20.8z"></path> </g> </g></svg></li>
-        <li onclick="window.open('https:/\/www.linkedin.com/in/ismail-nyms-3b2778316/', '_blank')" class="cursor-pointer hover:stroke-white hover:fill-white"><svg class="hover:stroke-white hover:fill-white" fill="#94a3b8" height="30px" width="30px" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M23,0H9C4,0,0,4,0,9v14c0,5,4,9,9,9h14c5,0,9-4,9-9V9C32,4,28,0,23,0z M12,25c0,0.6-0.4,1-1,1H7c-0.6,0-1-0.4-1-1V13 c0-0.6,0.4-1,1-1h4c0.6,0,1,0.4,1,1V25z M9,11c-1.7,0-3-1.3-3-3s1.3-3,3-3s3,1.3,3,3S10.7,11,9,11z M26,25c0,0.6-0.4,1-1,1h-3 c-0.6,0-1-0.4-1-1v-3.5v-1v-2c0-0.8-0.7-1.5-1.5-1.5S18,17.7,18,18.5v2v1V25c0,0.6-0.4,1-1,1h-3c-0.6,0-1-0.4-1-1V13 c0-0.6,0.4-1,1-1h4c0.3,0,0.5,0.1,0.7,0.3c0.6-0.2,1.2-0.3,1.8-0.3c3,0,5.5,2.5,5.5,5.5V25z"></path> </g></svg></li>
-        <li class="cursor-pointer hover:stroke-white hover:fill-white group"><svg class="group-hover:stroke-white group-hover:fill-white" class="mt-2" width="50px" height="50px" viewBox="0 -0.5 25 25" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g class="hover:stroke-white hover:fill-white" id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path class="group-hover:stroke-white group-hover:fill-white" fill-rule="evenodd" clip-rule="evenodd" d="M16.5 12L13 14.333V19L20 14.333V9.667L13 5V9.667L16.5 12Z" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path class="group-hover:stroke-white group-hover:fill-white" d="M6.41598 9.04293C6.07132 8.81319 5.60568 8.90635 5.37593 9.25102C5.14619 9.59568 5.23935 10.0613 5.58402 10.2911L6.41598 9.04293ZM12.584 14.9571C12.9287 15.1868 13.3943 15.0936 13.6241 14.749C13.8538 14.4043 13.7606 13.9387 13.416 13.7089L12.584 14.9571ZM6.75 9.667C6.75 9.25279 6.41421 8.917 6 8.917C5.58579 8.917 5.25 9.25279 5.25 9.667H6.75ZM5.25 14.333C5.25 14.7472 5.58579 15.083 6 15.083C6.41421 15.083 6.75 14.7472 6.75 14.333H5.25ZM5.58395 9.04298C5.23932 9.27275 5.1462 9.73841 5.37598 10.083C5.60575 10.4277 6.07141 10.5208 6.41605 10.291L5.58395 9.04298ZM13.416 5.62402C13.7607 5.39425 13.8538 4.92859 13.624 4.58395C13.3942 4.23932 12.9286 4.1462 12.584 4.37598L13.416 5.62402ZM13.416 10.2911C13.7606 10.0613 13.8538 9.59568 13.6241 9.25102C13.3943 8.90635 12.9287 8.81319 12.584 9.04293L13.416 10.2911ZM5.58402 13.7089C5.23935 13.9387 5.14619 14.4043 5.37593 14.749C5.60568 15.0936 6.07132 15.1868 6.41598 14.9571L5.58402 13.7089ZM6.41605 13.709C6.07141 13.4792 5.60575 13.5723 5.37598 13.917C5.1462 14.2616 5.23932 14.7272 5.58395 14.957L6.41605 13.709ZM12.584 19.624C12.9286 19.8538 13.3942 19.7607 13.624 19.416C13.8538 19.0714 13.7607 18.6058 13.416 18.376L12.584 19.624ZM20.416 10.2911C20.7606 10.0613 20.8538 9.59568 20.6241 9.25102C20.3943 8.90635 19.9287 8.81319 19.584 9.04293L20.416 10.2911ZM16.5 12L16.084 11.3759C15.8753 11.515 15.75 11.7492 15.75 12C15.75 12.2508 15.8753 12.485 16.084 12.6241L16.5 12ZM19.584 14.9571C19.9287 15.1868 20.3943 15.0936 20.6241 14.749C20.8538 14.4043 20.7606 13.9387 20.416 13.7089L19.584 14.9571ZM5.58402 10.2911L12.584 14.9571L13.416 13.7089L6.41598 9.04293L5.58402 10.2911ZM5.25 9.667V14.333H6.75V9.667H5.25ZM6.41605 10.291L13.416 5.62402L12.584 4.37598L5.58395 9.04298L6.41605 10.291ZM12.584 9.04293L5.58402 13.7089L6.41598 14.9571L13.416 10.2911L12.584 9.04293ZM5.58395 14.957L12.584 19.624L13.416 18.376L6.41605 13.709L5.58395 14.957ZM19.584 9.04293L16.084 11.3759L16.916 12.6241L20.416 10.2911L19.584 9.04293ZM16.084 12.6241L19.584 14.9571L20.416 13.7089L16.916 11.3759L16.084 12.6241Z" fill="#94a3b8"></path> </g></svg></li>
-      </ul>
-  </section>
-
-
-<duv class="contentScrol lg:w-[52%] p-[60px] lg:ml-[50%]">
-
-<section class="about space-y-8 max-md:text-sm text-xl m-4" id="about">
-<div class="leading-tight">I’m an aspiring Full Stack Developer with a strong passion for creating clean, responsive, and accessible web applications. I enjoy bringing user interfaces to life with thoughtful design and solid front-end development, while continuously building my skills on the <a href="" class="font-bold text-white hover:text-teal-300">back-end</a> to become a well-rounded developer.</div>
-<div class="leading-tight">My main focus right now is mastering modern tools and frameworks like <a href="" class="font-bold text-white hover:text-teal-300">JavaScript</a>, React,<a href="" class="font-bold text-white hover:text-teal-300">Tailwind CSS</a>, and exploring back-end technologies like <a href="" class="font-bold text-white hover:text-teal-300">Tailwind CSS</a> , Express, and <a href="" class="font-bold text-white hover:text-teal-300">MongoDB</a> . I’m especially interested in understanding how performance, usability, and accessibility come together to shape great user experiences.</div>
-<div class="leading-tight">As a creative problem solver, I approach every project as an opportunity to learn and grow. Whether I’m designing pixel-perfect layouts or connecting front-end to back-end logic, I strive to build projects that are both functional and user-friendly.</div>
-<div class="leading-tight">Outside of coding, I love exploring new design trends, reading about software architecture, and studying how great developers build scalable systems. I'm excited to continue learning, collaborating, and building real-world applications that make a difference.</div>
-</section>
-
-<br><br><br>
-<section class="projects" id="projects">
-  <p class="text-slate-400 p-4">2024 - PRESENT</p>
-       <div onclick="window.open('https:/\/smail12395.github.io/reservation/reservation.html', '_blank')" class="flex group items-center h-full space-x-4 cursor-pointer hover:bg-slate-800 rounded-lg p-4 m-2 file:transation duration-300">
-            <div class="w-[120px] h-[120px] flex-shrink-0 flex items-center">
-              <img class="w-full h-full object-cover rounded-md" src="./images/saas.webp" alt="">
+    <div class="content">
+        <section class="left-panel">
+            <div class="header">
+                <div class="text-3xl font-extrabold tracking-tighter text-green-400 sm:text-5xl glow glitch" data-text="ISMAIL NYMS">
+                    ISMAIL NYMS
+                </div>
+                <div class="mt-4 text-green-400 text-xl tracking-tighter glow">Full-Stack Development</div>
+                <div class="mr-[20%] tracking-tighter terminal-text mt-6">I design and build modern, responsive websites while learning full-stack development one project at a time.</div>
             </div>
-            <div class="flex-1 h-full mb-2">
-                  <div class="text-white group-hover:text-teal-300 flex justify-start cursor-pointer space-x-2">
-                      <span class="">Barber Reservation Website</span> 
-                      <span class="group-hover:-translate-y-1 group-hover:translate-x-1  transition-all duration-300">↗</span>
+
+            <nav class="nav-menu">
+                <a href="#about" class="nav-item">
+                    <div class="nav-bar"></div>
+                    <span class="nav-text">about</span>
+                </a>
+                <a href="#projects" class="nav-item">
+                    <div class="nav-bar"></div>
+                    <span class="nav-text">projects</span>
+                </a>
+                <a href="#education" class="nav-item">
+                    <div class="nav-bar"></div>
+                    <span class="nav-text">education</span>
+                </a>
+            </nav>
+
+            <div class="social-icons">
+                <div onclick="window.open('https://github.com/smail12395/', '_blank')" class="social-icon">
+                    <svg width="30px" height="30px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="SVGRepo_iconCarrier"> 
+                            <title>github [#0f0]</title> 
+                            <desc>Created with Sketch.</desc> 
+                            <defs> </defs> 
+                            <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> 
+                                <g class="group-hover:fill-green-400" id="Dribbble-Light-Preview" transform="translate(-140.000000, -7559.000000)" fill="#0f0"> 
+                                    <g id="icons" transform="translate(56.000000, 160.000000)"> 
+                                        <path d="M94,7399 C99.523,7399 104,7403.59 104,7409.253 C104,7413.782 101.138,7417.624 97.167,7418.981 C96.66,7419.082 96.48,7418.762 96.48,7418.489 C96.48,7418.151 96.492,7417.047 96.492,7415.675 C96.492,7414.719 96.172,7414.095 95.813,7413.777 C98.04,7413.523 100.38,7412.656 100.38,7408.718 C100.38,7407.598 99.992,7406.684 99.35,7405.966 C99.454,7405.707 99.797,7404.664 99.252,7403.252 C99.252,7403.252 98.414,7402.977 96.505,7404.303 C95.706,7404.076 94.85,7403.962 94,7403.958 C93.15,7403.962 92.295,7404.076 91.497,7404.303 C89.586,7402.977 88.746,7403.252 88.746,7403.252 C88.203,7404.664 88.546,7405.707 88.649,7405.966 C88.01,7406.684 87.619,7407.598 87.619,7408.718 C87.619,7412.646 89.954,7413.526 92.175,7413.785 C91.889,7414.041 91.63,7414.493 91.54,7415.156 C90.97,7415.418 89.522,7415.871 88.63,7414.304 C88.63,7414.304 88.101,7413.319 87.097,7413.247 C87.097,7413.247 86.122,7413.234 87.029,7413.87 C87.029,7413.87 87.684,7414.185 88.139,7415.37 C88.139,7415.37 88.726,7417.2 91.508,7416.58 C91.513,7417.437 91.522,7418.245 91.522,7418.489 C91.522,7418.76 91.338,7419.077 90.839,7418.982 C86.865,7417.627 84,7413.783 84,7409.253 C84,7403.59 88.478,7399 94,7399" id="github-[#0f0]"> </path> 
+                                    </g> 
+                                </g> 
+                            </g> 
+                        </g>
+                    </svg>
+                </div>
+                <div onclick="window.open('https://instagram.com/ornyms/', '_blank')" class="social-icon">
+                    <svg fill="#0f0" width="30px" height="30px" viewBox="0 0 32 32" id="Camada_1" version="1.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="SVGRepo_iconCarrier"> 
+                            <g> 
+                                <path d="M22.3,8.4c-0.8,0-1.4,0.6-1.4,1.4c0,0.8,0.6,1.4,1.4,1.4c0.8,0,1.4-0.6,1.4-1.4C23.7,9,23.1,8.4,22.3,8.4z"></path> 
+                                <path d="M16,10.2c-3.3,0-5.9,2.7-5.9,5.9s2.7,5.9,5.9,5.9s5.9-2.7,5.9-5.9S19.3,10.2,16,10.2z M16,19.9c-2.1,0-3.8-1.7-3.8-3.8 c0-2.1,1.7-3.8,3.8-3.8c2.1,0,3.8,1.7,3.8,3.8C19.8,18.2,18.1,19.9,16,19.9z"></path> 
+                                <path d="M20.8,4h-9.5C7.2,4,4,7.2,4,11.2v9.5c0,4,3.2,7.2,7.2,7.2h9.5c4,0,7.2-3.2,7.2-7.2v-9.5C28,7.2,24.8,4,20.8,4z M25.7,20.8 c0,2.7-2.2,5-5,5h-9.5c-2.7,0-5-2.2-5-5v-9.5c0-2.7,2.2-5,5-5h9.5c2.7,0,5,2.2,5,5V20.8z"></path> 
+                            </g> 
+                        </g>
+                    </svg>
+                </div>
+                <div onclick="window.open('https://www.linkedin.com/in/ismail-nyms-3b2778316/', '_blank')" class="social-icon">
+                    <svg fill="#0f0" height="30px" width="30px" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="SVGRepo_iconCarrier"> 
+                            <path d="M23,0H9C4,0,0,4,0,9v14c0,5,4,9,9,9h14c5,0,9-4,9-9V9C32,4,28,0,23,0z M12,25c0,0.6-0.4,1-1,1H7c-0.6,0-1-0.4-1-1V13 c0-0.6,0.4-1,1-1h4c0.6,0,1,0.4,1,1V25z M9,11c-1.7,0-3-1.3-3-3s1.3-3,3-3s3,1.3,3,3S10.7,11,9,11z M26,25c0,0.6-0.4,1-1,1h-3 c-0.6,0-1-0.4-1-1v-3.5v-1v-2c0-0.8-0.7-1.5-1.5-1.5S18,17.7,18,18.5v2v1V25c0,0.6-0.4,1-1,1h-3c-0.6,0-1-0.4-1-1V13 c0-0.6,0.4-1,1-1h4c0.3,0,0.5,0.1,0.7,0.3c0.6-0.2,1.2-0.3,1.8-0.3c3,0,5.5,2.5,5.5,5.5V25z"></path> 
+                        </g>
+                    </svg>
+                </div>
+                <div class="social-icon">
+                    <svg width="40px" height="40px" viewBox="0 -0.5 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g class="hover:fill-green-400" id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="SVGRepo_iconCarrier"> 
+                            <path class="group-hover:fill-green-400" fill-rule="evenodd" clip-rule="evenodd" d="M16.5 12L13 14.333V19L20 14.333V9.667L13 5V9.667L16.5 12Z" stroke="#0f0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> 
+                            <path class="group-hover:fill-green-400" d="M6.41598 9.04293C6.07132 8.81319 5.60568 8.90635 5.37593 9.25102C5.14619 9.59568 5.23935 10.0613 5.58402 10.2911L6.41598 9.04293ZM12.584 14.9571C12.9287 15.1868 13.3943 15.0936 13.6241 14.749C13.8538 14.4043 13.7606 13.9387 13.416 13.7089L12.584 14.9571ZM6.75 9.667C6.75 9.25279 6.41421 8.917 6 8.917C5.58579 8.917 5.25 9.25279 5.25 9.667H6.75ZM5.25 14.333C5.25 14.7472 5.58579 15.083 6 15.083C6.41421 15.083 6.75 14.7472 6.75 14.333H5.25ZM5.58395 9.04298C5.23932 9.27275 5.1462 9.73841 5.37598 10.083C5.60575 10.4277 6.07141 10.5208 6.41605 10.291L5.58395 9.04298ZM13.416 5.62402C13.7607 5.39425 13.8538 4.92859 13.624 4.58395C13.3942 4.23932 12.9286 4.1462 12.584 4.37598L13.416 5.62402ZM13.416 10.2911C13.7606 10.0613 13.8538 9.59568 13.6241 9.25102C13.3943 8.90635 12.9287 8.81319 12.584 9.04293L13.416 10.2911ZM5.58402 13.7089C5.23935 13.9387 5.14619 14.4043 5.37593 14.749C5.60568 15.0936 6.07132 15.1868 6.41598 14.9571L5.58402 13.7089ZM6.41605 13.709C6.07141 13.4792 5.60575 13.5723 5.37598 13.917C5.1462 14.2616 5.23932 14.7272 5.58395 14.957L6.41605 13.709ZM12.584 19.624C12.9286 19.8538 13.3942 19.7607 13.624 19.416C13.8538 19.0714 13.7607 18.6058 13.416 18.376L12.584 19.624ZM20.416 10.2911C20.7606 10.0613 20.8538 9.59568 20.6241 9.25102C20.3943 8.90635 19.9287 8.81319 19.584 9.04293L20.416 10.2911ZM16.5 12L16.084 11.3759C15.8753 11.515 15.75 11.7492 15.75 12C15.75 12.2508 15.8753 12.485 16.084 12.6241L16.5 12ZM19.584 14.9571C19.9287 15.1868 20.3943 15.0936 20.6241 14.749C20.8538 14.4043 20.7606 13.9387 20.416 13.7089L19.584 14.9571ZM5.58402 10.2911L12.584 14.9571L13.416 13.7089L6.41598 9.04293L5.58402 10.2911ZM5.25 9.667V14.333H6.75V9.667H5.25ZM6.41605 10.291L13.416 5.62402L12.584 4.37598L5.58395 9.04298L6.41605 10.291ZM12.584 9.04293L5.58402 13.7089L6.41598 14.9571L13.416 10.2911L12.584 9.04293ZM5.58395 14.957L12.584 19.624L13.416 18.376L6.41605 13.709L5.58395 14.957ZM19.584 9.04293L16.084 11.3759L16.916 12.6241L20.416 10.2911L19.584 9.04293ZM16.084 12.6241L19.584 14.9571L20.416 13.7089L16.916 11.3759L16.084 12.6241Z" fill="#0f0"></path> 
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <div class="right-panel">
+            <section class="about section" id="about">
+                <h2 class="section-title terminal-text">About Me</h2>
+                <div class="leading-tight terminal-text mb-4">I'm an aspiring Full Stack Developer with a strong passion for creating clean, responsive, and accessible web applications. I enjoy bringing user interfaces to life with thoughtful design and solid front-end development, while continuously building my skills on the <a href="" class="font-bold text-green-400 matrix-link">back-end</a> to become a well-rounded developer.</div>
+                <div class="leading-tight terminal-text mb-4">My main focus right now is mastering modern tools and frameworks like <a href="" class="font-bold text-green-400 matrix-link">JavaScript</a>, React,<a href="" class="font-bold text-green-400 matrix-link">Tailwind CSS</a>, and exploring back-end technologies like <a href="" class="font-bold text-green-400 matrix-link">Tailwind CSS</a> , Express, and <a href="" class="font-bold text-green-400 matrix-link">MongoDB</a> . I'm especially interested in understanding how performance, usability, and accessibility come together to shape great user experiences.</div>
+                <div class="leading-tight terminal-text mb-4">As a creative problem solver, I approach every project as an opportunity to learn and grow. Whether I'm designing pixel-perfect layouts or connecting front-end to back-end logic, I strive to build projects that are both functional and user-friendly.</div>
+                <div class="leading-tight terminal-text">Outside of coding, I love exploring new design trends, reading about software architecture, and studying how great developers build scalable systems. I'm excited to continue learning, collaborating, and building real-world applications that make a difference.</div>
+            </section>
+
+            <section class="projects section" id="projects">
+                <h2 class="section-title terminal-text">Projects</h2>
+                <div class="project-card" onclick="window.open('https://smail12395.github.io/reservation/reservation.html', '_blank')">
+                    <div class="project-image">
+                        <img src="./images/saas.webp" alt="Barber Reservation Website">
                     </div>
-                        <p class="text-slate-400 leading-tight text-sm max-md:text-xs">
-                          Barber Reservation is a simple booking system designed for small local barbershops. It allows clients to reserve time slots and stores the data in a lightweight JSON file, making it ideal for quick deployment without a full database.
+                    <div class="project-content">
+                        <div class="project-title">
+                            <span>Barber Reservation Website</span>
+                            <span>↗</span>
+                        </div>
+                        <p class="project-desc">
+                            Barber Reservation is a simple booking system designed for small local barbershops. It allows clients to reserve time slots and stores the data in a lightweight JSON file, making it ideal for quick deployment without a full database.
                         </p>
-                    <div>
-                  </div>
-            </div>
-       </div>
-
-      <div onclick="window.open('https:/\/smail12395.github.io/GitFolio', '_blank')" class="flex group items-center h-full space-x-4 cursor-pointer hover:bg-slate-800 rounded-lg p-4 m-2 file:transation duration-300">
-            <div class="w-[120px] h-[120px] flex-shrink-0 flex items-center">
-              <img class="w-full h-full object-cover rounded-md" src="./images/GitFolio.png" alt="">
-            </div>
-            <div class="flex-1 h-full mb-2">
-                  <div class="text-white group-hover:text-teal-300 flex justify-start cursor-pointer space-x-2">
-                      <span class="">GitHub Portfolio Using APIs</span> 
-                      <span class="group-hover:-translate-y-1 group-hover:translate-x-1  transition-all duration-300">↗</span>
                     </div>
-                        <p class="text-slate-400 leading-tight text-sm max-md:text-xs">
-                          For a project that uses the GitHub API to display each user's portfolio, you’d want a name that’s clear, professional, and a bit catchy so it works well on GitHub and LinkedIn.       
-                        </p>
-                    <div>
-                  </div>
-            </div>
-       </div>
-</section>
+                </div>
 
-<br><br><br>
-<section class="education m-4 max-md:m-1 max-md:text-xs" id="education">
-<p class="text-slate-400 p-4">2024 - PRESENT</p>
-       <div onclick="window.open('https:/\/www.freecodecamp.org/certification/ismailettafy12395-34/responsive-web-design', '_blank')" class="flex group items-center h-full space-x-4 cursor-pointer hover:bg-slate-800 rounded-lg p-4 m-2 file:transation duration-300">
-            <div class="h-full mt-2">
-                  <div class="text-white group-hover:text-teal-300 flex justify-start cursor-pointer space-x-2">
-                      <span class="">Responsive Web Design Certification – FreeCodeCamp</span> 
-                      <span class="group-hover:-translate-y-1 group-hover:translate-x-1  transition-all duration-300">↗</span>
+                <div class="project-card" onclick="window.open('https://smail12395.github.io/GitFolio', '_blank')">
+                    <div class="project-image">
+                        <img src="./images/GitFolio.png" alt="GitHub Portfolio Using APIs">
                     </div>
-                        <p class="text-slate-400 md:eading-tight text-sm max-md:text-xs">
-                           Earned FreeCodeCamp’s Responsive Web Design Certification by building projects using HTML and CSS.  
-                           Covered layouts, accessibility, Flexbox, Grid, and responsive techniques.
+                    <div class="project-content">
+                        <div class="project-title">
+                            <span>GitHub Portfolio Using APIs</span>
+                            <span>↗</span>
+                        </div>
+                        <p class="project-desc">
+                            For a project that uses the GitHub API to display each user's portfolio, you'd want a name that's clear, professional, and a bit catchy so it works well on GitHub and LinkedIn.       
                         </p>
-                    <div>
-                <div class="features flex md:space-x-4 m-2 space-x-1">
-                  <span class="text-center flex items-center p-2 max-md:p-1 bg-teal-400/10 rounded-xl text-teal-300 font-bold leading-tight">TailwindCSS</span>
-                  <span class="text-center flex items-center p-2 max-md:p-1 bg-teal-400/10 rounded-xl text-teal-300 font-bold leading-tight">JavaScript</span>
-               </div>
+                    </div>
+                </div>
+            </section>
 
-                  </div>
-            </div>
-       </div>
+            <section class="education section" id="education">
+                <h2 class="section-title terminal-text">Education</h2>
+                <div class="education-card" onclick="window.open('https://www.freecodecamp.org/certification/ismailettafy12395-34/responsive-web-design', '_blank')">
+                    <div class="project-content">
+                        <div class="project-title">
+                            <span>Responsive Web Design Certification – FreeCodeCamp</span>
+                            <span>↗</span>
+                        </div>
+                        <p class="project-desc">
+                            Earned FreeCodeCamp's Responsive Web Design Certification by building projects using HTML and CSS.  
+                            Covered layouts, accessibility, Flexbox, Grid, and responsive techniques.
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-item">TailwindCSS</span>
+                            <span class="tech-item">JavaScript</span>
+                        </div>
+                    </div>
+                </div>
 
-   mollitia? Quam
-       praesentium quae repudiandae aut quaerat perspiciatis adipisci odit dolorem reprehenderit qui, incidunt
-        alias similique libero dolore vero maiores dicta eius? Deleniti, dolores, consequatur ea dicta minus 
-        non accusantium soluta numquam nobis voluptate incidunt impedit, quo illum maxime perspiciatis delectus?
-         Quaerat fugit voluptas veritLorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus sequi eveniet vitae ducimus
- id velit dolor nemo architecto! In assumenda labore, maxime architecto veritatis possimus nemo.
-  Asperiores natus quia itaque quis ratione reiciendis nam eum, sunt cupiditate reprehenderit sint
-   consequuntur repellendus vitae dolorum incidunt! Expedita sint adipisci voluptatum ipsa quidem 
-   voluptatibus soluta incidunt vero eum obcaecati! Animi minima, aliquid alias error rem dolorem 
-   molestiae maxime illum ex facere maiores omnis, quidem quasi minus eos quia tenetur culpa, architecto
-    rerum molestias itaque voluptatem ipsam natus. Optio neque aliquid perspiciatis non doloremque, dicta odit
-     dignissimos fugit impedit distinctio error minus libero nihil laudantium, eos, ducimus at magni corporis
-      debitis enim sapiente saepe sunt temporibus quidem. Id est numquam eius voluptate quis mollitia? Quam
-       praesentium quae repudiandae aut quaerat perspiciatis adipisci odit dolorem reprehenderit qui, incidunt
-        alias similique libero dolore vero maiores dicta eius? Deleniti, dolores, consequatur ea dicta minus 
-        non accusantium soluta numquam nobis voluptate incidunt impedit, quo illum maxime perspiciatis delectus?
-         Quaerat fugit voluptas veritatis repudiandae expedita ullam fuga ut, ipsam, quae, consequuntur placeat 
-         inventore nemo omnis id nihil at itaque! Illum dolor dignissimos amet tenetur ducimus ratione officia 
-         nostrum autem quidem ex repellat voluptatibus vitae sapiente id totam, quia, voluptate dolores? Fuga 
-         tempore quae laudantium dolor consequuntur dolorum consequatur doloremque accusantium ad, nobis
-          dignissimos possimus excepturi quo! Reprehenderit libero laborum dolor necessitatibus
-           quae, mollitia possimus excepturi? Repellendus, inventore aperiam placeat libero
-            voluptate modi dolorem culpa error aliquam amet minus debitis magni necessitatibus
-             maiores tempore dolores perferendis qui rerum eius exercitationem obcaecati natus?
-              Perferendis, iste autem! Molestias nisi itaque eaque autem tempora ad, eveniet enim
-               sapiente non porro, hic consequatur cumque iure voluptatibus voluptatem optio vitae
-                tempore minima exercitationem qui soluta ab? Tenetur blanditiis nulla, at doloremque odio voluptatum, eos
-                 animi
-                vitae voluptas aspernatur quibusdam mollitia? Maxime, quisquam voluptatum magni sunt accusantium id corpo
-                ris fugit minus ad enim suscipi
-                t at corrupti ut. Recusandae, veritatis exercitationem, vitae harum tempora eaque molestias deleniti numq
-                uam mime, facilia ratione ullam totam amet hic. Incidunt, aliquid eligendi sequi cumque repudiandae natus esse inaudantium amet, labore recusandae voluptate iste neque quae iure enim reprehenderit, accusam
-                 stinctio asperiores odio iusto? Commodi consectetur atque sunt eveniet et fugit in autem sint a
-                 atur nemo, optio reiciendis dolor, delectus libero quibusdam ut placeat repudiandae. Architecto 
-                 alias deserunt non magni ut rerum, perferendis voluptatibus hic, est sed, suscipit amet? Aperiam rem tenetur officia nesciu
-                 nt non voluptatum exercitationem asperiores error distinctio suscipit ratione veritatis dicta, adipisci labore, at maxime repe
-                 llat ullam accusamus nihil mollitia ipsa ipsam quos! Iure odio, veniam molestiae rerum doloribus fuga quod magni delectus su
-                 scipit. Ipsum delectus possimus aspernatur aperiam. Et quasi quas fugiat amet ut obcaecati dol
-                 orum eveniet nostrum vero accusamus at cum ipsum tempora error qui eligendi, delectus molestias 
-                 nobis corporis? Accusamus, est! Accusamus corporis, odit unde fugiat, temporibus
-                  quidem maxime, totam distinctio impedit fuga architecto? Odio delectus facilis qui neque
-                   atque fugit, earum id dignissimos modi itaque autem iste sed debitis, vitae soluta nam saepe
-                   , sunt accusantium ea. Nesciunt inventore sed cum!
-</section>
-</div>
+                <div class="terminal-text mt-8">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus sequi eveniet vitae ducimus
+                    id velit dolor nemo architecto! In assumenda labore, maxime architecto veritatis possimus nemo.
+                    Asperiores natus quia itaque quis ratione reiciendis nam eum, sunt cupiditate reprehenderit sint
+                    consequuntur repellendus vitae dolorum incidunt! Expedita sint adipisci voluptatum ipsa quidem 
+                    voluptatibus soluta incidunt vero eum obcaecati! Animi minima, aliquid alias error rem dolorem 
+                    molestiae maxime illum ex facere maiores omnis, quidem quasi minus eos quia tenetur culpa, architecto
+                    rerum molestias itaque voluptatem ipsam natus. Optio neque aliquid perspiciatis non doloremque, dicta odit
+                    dignissimos fugit impedit distinctio error minus libero nihil laudantium, eos, ducimus at magni corporis
+                    debitis enim sapiente saepe sunt temporibus quidem. Id est numquam eius voluptate quis mollitia? Quam
+                    praesentium quae repudiandae aut quaerat perspiciatis adipisci odit dolorem reprehenderit qui, incidunt
+                    alias similique libero dolore vero maiores dicta eius? Deleniti, dolores, consequatur ea dicta minus 
+                    non accusantium soluta numquam nobis voluptate incidunt impedit, quo illum maxime perspiciatis delectus?
+                    Quaerat fugit voluptas veritatis repudiandae expedita ullam fuga ut, ipsam, quae, consequuntur placeat 
+                    inventore nemo omnis id nihil at itaque! Illum dolor dignissimos amet tenetur ducimus ratione officia 
+                    nostrum autem quidem ex repellat voluptatibus vitae sapiente id totam, quia, voluptate dolores? Fuga 
+                    tempore quae laudantium dolor consequuntur dolorum consequatur doloremque accusantium ad, nobis
+                    dignissimos possimus excepturi quo! Reprehenderit libero laborum dolor necessitatibus
+                    quae, mollitia possimus excepturi? Repellendus, inventore aperiam placeat libero
+                    voluptate modi dolorem culpa error aliquam amet minus debitis magni necessitatibus
+                    maiores tempore dolores perferendis qui rerum eius exercitationem obcaecati natus?
+                    Perferendis, iste autem! Molestias nisi itaque eaque autem tempora ad, eveniet enim
+                    sapiente non porro, hic consequatur cumque iure voluptatibus voluptatem optio vitae
+                    tempore minima exercitationem qui soluta ab? Tenetur blanditiis nulla, at doloremque odio voluptatum, eos
+                    animi
+                    vitae voluptas aspernatur quibusdam mollitia? Maxime, quisquam voluptatum magni sunt accusantium id corpo
+                    ris fugit minus ad enim suscipi
+                    t at corrupti ut. Recusandae, veritatis exercitationem, vitae harum tempora eaque molestias deleniti numq
+                    uam mime, facilia ratione ullam totam amet hic. Incidunt, aliquid eligendi sequi cumque repudiandae natus esse inaudantium amet, labore recusandae voluptate iste neque quae iure enim reprehenderit, accusam
+                    stinctio asperiores odio iusto? Commodi consectetur atque sunt eveniet et fugit in autem sint a
+                    atur nemo, optio reiciendis dolor, delectus libero quibusdam ut placeat repudiandae. Architecto 
+                    alias deserunt non magni ut rerum, perferendis voluptatibus hic, est sed, suscipit amet? Aperiam rem tenetur officia nesciu
+                    nt non voluptatum exercitationem asperiores error distinctio suscipit ratione veritatis dicta, adipisci labore, at maxime repe
+                    llat ullam accusamus nihil mollitia ipsa ipsam quos! Iure odio, veniam molestiae rerum doloribus fuga quod magni delectus su
+                    scipit. Ipsum delectus possimus aspernatur aperiam. Et quasi quas fugiat amet ut obcaecati dol
+                    orum eveniet nostrum vero accusamus at cum ipsum tempora error qui eligendi, delectus molestias 
+                    nobis corporis? Accusamus, est! Accusamus corporis, odit unde fugiat, temporibus
+                    quidem maxime, totam distinctio impedit fuga architecto? Odio delectus facilis qui neque
+                    atque fugit, earum id dignissimos modi itaque autem iste sed debitis, vitae soluta nam saepe
+                    , sunt accusantium ea. Nesciunt inventore sed cum!
+                </div>
+            </section>
+        </div>
+    </div>
 
+    <script>
+        // Matrix rain effect
+        function createMatrixRain() {
+            const matrixContainer = document.getElementById('matrixCode');
+            const columns = Math.floor(window.innerWidth / 20);
+            
+            for (let i = 0; i < columns; i++) {
+                const column = document.createElement('div');
+                column.className = 'code-column';
+                column.style.left = `${i * 20}px`;
+                column.style.animationDuration = `${Math.random() * 5 + 5}s`;
+                column.style.animationDelay = `${Math.random() * 5}s`;
+                
+                // Generate random binary/Unicode characters
+                let content = '';
+                const length = Math.floor(Math.random() * 20) + 10;
+                for (let j = 0; j < length; j++) {
+                    // Mix of binary, hex, and Unicode characters
+                    if (Math.random() > 0.5) {
+                        content += Math.random() > 0.5 ? '0' : '1';
+                    } else {
+                        content += String.fromCharCode(Math.floor(Math.random() * 10) + 48);
+                    }
+                    content += '<br>';
+                }
+                column.innerHTML = content;
+                matrixContainer.appendChild(column);
+            }
+        }
 
+        // Terminal typing effect
+        function terminalTypingEffect() {
+            const terminalTexts = document.querySelectorAll('.terminal-text');
+            terminalTexts.forEach(text => {
+                const originalText = text.textContent;
+                text.textContent = '';
+                
+                let i = 0;
+                const typing = setInterval(() => {
+                    if (i < originalText.length) {
+                        text.textContent += originalText.charAt(i);
+                        i++;
+                    } else {
+                        clearInterval(typing);
+                    }
+                }, 30);
+            });
+        }
 
-</div>
-<script>
+        // Glitch effect for headers
+        function applyGlitchEffect() {
+            const glitchElements = document.querySelectorAll('.glitch');
+            glitchElements.forEach(element => {
+                setInterval(() => {
+                    element.style.transform = `skew(${(Math.random() - 0.5) * 2}deg)`;
+                }, 5000);
+            });
+        }
 
-//.\node_modules\.bin\tailwindcss.cmd -i ./src/input.css -o ./dist/output.css --watch
-</script>
-<script src="main.js"></script>
+        // Initialize everything when the page loads
+        window.addEventListener('DOMContentLoaded', () => {
+            createMatrixRain();
+            terminalTypingEffect();
+            applyGlitchEffect();
+            
+            // Add click effect to project cards
+            const projectCards = document.querySelectorAll('.project-card, .education-card');
+            projectCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    this.style.boxShadow = '0 0 20px rgba(0, 255, 0, 0.4)';
+                    setTimeout(() => {
+                        this.style.boxShadow = '0 0 15px rgba(0, 255, 0, 0.2)';
+                    }, 500);
+                });
+            });
+        });
+
+        // Add ripple effect on scroll
+        window.addEventListener('scroll', () => {
+            const scrollPosition = window.scrollY;
+            document.body.style.backgroundPosition = `0 ${scrollPosition * 0.5}px`;
+        });
+    </script>
 </body>
 </html>
+```
